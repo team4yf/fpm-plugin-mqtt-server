@@ -41,6 +41,11 @@ const createMqttServer = fpm =>{
         total: clients.length,
         rows: clients,
       };
+    },
+    publish: args => {
+        const { topic = '$SYS/UNDEFINED', payload = '00' } = args;
+        server.publish({ topic, payload })
+        return 1;
     }
   })
 

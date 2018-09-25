@@ -21,4 +21,7 @@ Config Define
 }
 ```
 
-### 
+### API
+
+- mqtt.publish
+{ topic, payload }
