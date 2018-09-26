@@ -7,7 +7,7 @@ const createMqttServer = fpm =>{
   const clients = [];
 
   /* The Start: Create Mqtt Server */
-  const { port, debug, auth } = fpm.getConfig('mqtt', { port: 1883, debug: true, auth: { admin: '123123123' } })
+  const { port, debug, auth } = _.assign({ port: 1883, debug: true, auth: { admin: '123123123' } }, fpm.getConfig('mqtt'));
   
   const server = new mosca.Server({ port });
 
