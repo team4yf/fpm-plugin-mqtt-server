@@ -14,6 +14,7 @@ Config Define
 {
     "mqtt":{
         "port": 1883,
+        "debug": true,
         "auth": {
             "admin": "123123123"
         }

@@ -7,7 +7,7 @@ const createMqttServer = fpm =>{
   const clients = [];
 
   /* The Start: Create Mqtt Server */
-  const { port, auth } = fpm.getConfig('mqtt', { port: 1883, auth: { admin: '123123123' } })
+  const { port, debug, auth } = fpm.getConfig('mqtt', { port: 1883, debug: true, auth: { admin: '123123123' } })
   
   const server = new mosca.Server({ port });
 
@@ -33,6 +33,12 @@ const createMqttServer = fpm =>{
       }
       callback(null, flag);
     };
+  });
+
+  server.on("published",(packet,client) =>{
+    if(debug){
+      fpm.logger.info(`On Published Event: `, packet);
+    }
   });
 
   fpm.extendModule('mqtt', {
