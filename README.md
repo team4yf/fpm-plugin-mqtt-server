@@ -22,7 +22,9 @@ Config Define
 }
 ```
 
-### API
-
-- mqtt.publish
-{ topic, payload }
+### Env config
+```
+MQTT_PORT: 1883
+MQTT_DEBUG: 0
+MQTT_AUTH: "{\"admin\":\"123123123\"}"
+```

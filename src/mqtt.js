@@ -7,12 +7,18 @@ const createMqttServer = fpm =>{
   const clients = [];
 
   /* The Start: Create Mqtt Server */
-  const { port, debug, auth } = _.assign({ port: 1883, debug: true, auth: { admin: '123123123' } }, fpm.getConfig('mqtt'));
-  
+  const { MQTT_PORT, MQTT_DEBUG, MQTT_AUTH } = fpm.getEnv();
+  const config = fpm.getConfig('mqtt', {});
+  const option = _.assign({ port: 1883, debug: true, auth: { 'admin': '123123123' } }, config);
+  const { port, debug, auth } = Object.assign(option, {
+    port: MQTT_PORT || option.port,
+    debug: MQTT_DEBUG === undefined ? option.debug : MQTT_DEBUG,
+    auth: MQTT_AUTH === undefined? option.auth : (JSON.parse(MQTT_AUTH)),
+  });
   const server = new mosca.Server({ port });
 
   server.on("clientConnected",function(client) {
-    fpm.logger.info(client.id, ' connect');
+    fpm.logger.info(client.id, ' connect', new Date().toUTCString());
     clients.push(client.id)
   // TODO: save the client
   });
@@ -21,7 +27,7 @@ const createMqttServer = fpm =>{
   // console.log("client clientDisconnected",client.id);
   // TODO: remove the client
     _.remove(clients, (id) => client.id == id)
-    fpm.logger.error(client.id, ' disconnected');
+    fpm.logger.error(client.id, ' disconnected', new Date().toUTCString());
   });
 
   server.on('ready',function() {
@@ -40,20 +46,6 @@ const createMqttServer = fpm =>{
       fpm.logger.info(`On Published Event: `, packet);
     }
   });
-
-  fpm.extendModule('mqtt', {
-    clients: args => {
-      return {
-        total: clients.length,
-        rows: clients,
-      };
-    },
-    publish: args => {
-        const { topic = '$SYS/UNDEFINED', payload = '00' } = args;
-        server.publish({ topic, payload })
-        return 1;
-    }
-  })
 
   return server;
 }
