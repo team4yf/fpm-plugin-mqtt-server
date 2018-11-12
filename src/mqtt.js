@@ -12,7 +12,7 @@ const createMqttServer = fpm =>{
   const option = _.assign({ port: 1883, debug: true, auth: { 'admin': '123123123' } }, config);
   const { port, debug, auth } = Object.assign(option, {
     port: MQTT_PORT || option.port,
-    debug: MQTT_DEBUG === undefined ? option.debug : MQTT_DEBUG,
+    debug: MQTT_DEBUG === undefined ? option.debug : (`${MQTT_DEBUG}` != '0'),
     auth: MQTT_AUTH === undefined? option.auth : (JSON.parse(MQTT_AUTH)),
   });
   const server = new mosca.Server({ port });

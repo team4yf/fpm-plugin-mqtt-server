@@ -1,6 +1,6 @@
 {
   "name": "fpm-plugin-mqtt-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Plugin Named [fpm-plugin-mqtt-server] For YF-FPM-SERVER~",
   "main": "lib/index.js",
   "scripts": {
