@@ -24,3 +24,6 @@ views/
 key.js
 db.lock
 config.json
+package-lock.json
+
+logs/

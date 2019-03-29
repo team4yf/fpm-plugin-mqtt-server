@@ -5,3 +5,4 @@ views/
 test/
 db.lock
 .babelrc
+logs/*.log

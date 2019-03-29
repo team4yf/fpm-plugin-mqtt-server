@@ -14,7 +14,6 @@ Config Define
 {
     "mqtt":{
         "port": 1883,
-        "debug": true,
         "auth": {
             "admin": "123123123"
         }
@@ -25,6 +24,7 @@ Config Define
 ### Env config
 ```
 MQTT_PORT: 1883
-MQTT_DEBUG: 0
+MQTT_DEBUG: 1
+MQTT_LOG: log.log
 MQTT_AUTH: "{\"admin\":\"123123123\"}"
 ```
