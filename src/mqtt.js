@@ -147,15 +147,16 @@ const createMqttServer = fpm =>{
   });
 
   server.on("published",(packet, client) =>{
-
-    fpm.execute('mongo.create', {
-      collection: 'message',
-      dbname: 'mqtt',
-      row: packet,
-    })
-      .catch(error => {
-        debug('Save message error: %O', error)
+    if(config.mongo && config.mongo.enable){
+      fpm.execute('mongo.create', {
+        collection: 'message',
+        dbname: 'mqtt',
+        row: packet,
       })
+        .catch(error => {
+          debug('Save message error: %O', error)
+        })
+    }
 
     if(_.startsWith(packet.topic, '$SYS/')){
       debug(`From System: %O`, packet);
