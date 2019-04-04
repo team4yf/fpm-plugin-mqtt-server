@@ -1,4 +1,8 @@
-## 0.0.1
+## 2.0.0
 
-Change `script` in `package.json`
-`prepublishOnly` replace `prepublish` 
+Add:
+- store the message into mongodb.
+- add `http` service for use mqtt in web browser.
+
+Remove:
+- `pino` logfile

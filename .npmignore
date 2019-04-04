@@ -6,3 +6,5 @@ test/
 db.lock
 .babelrc
 logs/*.log
+data/
+config*.json

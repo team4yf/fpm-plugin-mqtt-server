@@ -1,0 +1,15 @@
+{
+  "mqtt":{
+    "http": {
+      "enable": true
+    },
+    "mongo": {
+      "enable": true
+    }
+  },
+  "mongodb": {
+    "autoconnect": false,
+    "connstr": "mongodb://admin:admin@localhost",
+    "default": "mqtt"
+  }
+}
